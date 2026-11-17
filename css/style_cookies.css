@@ -1,0 +1,70 @@
+/* ============================================================
+   RutaNexo — Aviso de cookies y ventana de tratamiento de datos
+   ============================================================ */
+.ck-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9000; display: flex; justify-content: center; pointer-events: none;
+    opacity: 0; transform: translateY(20px); transition: opacity .25s, transform .25s; }
+.ck-banner[hidden] { display: none; }
+.ck-banner.visible { opacity: 1; transform: none; }
+.ck-banner-in { pointer-events: auto; width: 100%; max-width: 980px; display: flex; align-items: center; gap: 18px;
+    background: #0b2536; color: #e6f1f6; border-radius: 18px; padding: 16px 20px; box-shadow: 0 18px 50px rgba(0, 0, 0, .35); border: 1px solid rgba(255,255,255,.08); }
+.ck-ic { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(19, 196, 163, .18); color: #13c4a3; font-size: 1.3rem; }
+.ck-texto { flex: 1; min-width: 0; font-size: .88rem; line-height: 1.5; }
+.ck-texto b { display: block; font: 700 1rem var(--f-titulo, sans-serif); color: #fff; margin-bottom: 2px; }
+.ck-texto p { margin: 0; color: #c3d6e0; }
+.ck-enlace { color: #13c4a3; font-weight: 600; text-decoration: underline; white-space: nowrap; }
+.ck-botones { flex: none; display: flex; gap: 10px; }
+.ck-btn { border: 0; cursor: pointer; border-radius: 30px; padding: 10px 22px; font: 700 .88rem var(--f-titulo, sans-serif); transition: background .15s, transform .15s, color .15s; }
+.ck-btn:hover { transform: translateY(-1px); }
+.ck-aceptar { background: #13c4a3; color: #fff; }
+.ck-aceptar:hover { background: #0ea78a; }
+.ck-rechazar { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.5); }
+.ck-rechazar:hover { background: #fff; color: #0b2536; }
+.ck-btn:focus-visible, .ck-enlace:focus-visible, .ck-cerrar:focus-visible, .ck-tab:focus-visible { outline: 3px solid rgba(19, 196, 163, .6); outline-offset: 2px; }
+
+/* Enlace resaltado "Conocer el tratamiento de datos" (formularios) */
+.ck-link {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 30px;
+    background: #e3f8f3; color: #0b7a66 !important; font: 700 .8rem var(--f-texto, sans-serif); text-decoration: none; border: 1px solid #b5e8dc;
+    transition: background .15s, transform .15s; cursor: pointer;
+}
+.ck-link:hover { background: #cdf2ea; transform: translateY(-1px); }
+.ck-link i { font-size: .8rem; }
+
+/* Ventana */
+.ck-modal { position: fixed; inset: 0; z-index: 9500; background: rgba(8, 22, 33, .65); display: grid; place-items: center; padding: 16px; backdrop-filter: blur(2px); }
+.ck-modal[hidden] { display: none; }
+.ck-modal-caja { background: #fff; width: 100%; max-width: 720px; max-height: min(86vh, 760px); border-radius: 20px; display: flex; flex-direction: column; outline: 0; box-shadow: 0 30px 80px rgba(0,0,0,.4); overflow: hidden; animation: ckEntra .22s ease-out; }
+@keyframes ckEntra { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+.ck-modal-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px 12px; }
+.ck-modal-cab h2 { font: 800 1.2rem var(--f-titulo, sans-serif); color: #0b2536; display: flex; align-items: center; gap: 10px; }
+.ck-modal-cab h2 i { color: #13c4a3; }
+.ck-cerrar { flex: none; width: 36px; height: 36px; border-radius: 10px; border: 1px solid #d5dfe5; background: #fff; color: #0b2536; cursor: pointer; }
+.ck-cerrar:hover { background: #e3f8f3; color: #0ea78a; }
+.ck-tabs { display: flex; gap: 8px; padding: 0 22px 12px; border-bottom: 1px solid #e3ebef; }
+.ck-tab { border: 1px solid #d5dfe5; background: #fff; color: #0b2536; border-radius: 30px; padding: 8px 16px; font: 600 .84rem var(--f-texto, sans-serif); cursor: pointer; }
+.ck-tab.activo { background: #0b2536; border-color: #0b2536; color: #fff; }
+.ck-modal-cuerpo { padding: 18px 24px; overflow-y: auto; font-size: .92rem; line-height: 1.6; color: #2a4455; }
+.ck-modal-cuerpo h3 { font: 700 .98rem var(--f-titulo, sans-serif); color: #0b2536; margin: 18px 0 6px; }
+.ck-modal-cuerpo p { margin: 0 0 8px; }
+.ck-modal-cuerpo ul { margin: 0 0 8px; padding-left: 20px; display: grid; gap: 5px; }
+.ck-modal-cuerpo a { color: #0ea78a; font-weight: 600; text-decoration: underline; }
+.ck-resumen { background: #f1f9f7; border: 1px solid #cdeee7; border-radius: 12px; padding: 12px 14px; color: #1b4a40; }
+.ck-tabla-caja { overflow-x: auto; border: 1px solid #e3ebef; border-radius: 12px; }
+.ck-tabla { width: 100%; border-collapse: collapse; font-size: .85rem; min-width: 440px; }
+.ck-tabla th { text-align: left; background: #f4f8f9; padding: 10px 12px; font: 700 .72rem var(--f-texto, sans-serif); letter-spacing: .6px; text-transform: uppercase; color: #6c8190; }
+.ck-tabla td { padding: 10px 12px; border-top: 1px solid #edf2f5; vertical-align: top; }
+.ck-tabla code { background: #eef2f5; padding: 2px 6px; border-radius: 6px; font-size: .82rem; }
+.ck-modal-pie { padding: 14px 22px; border-top: 1px solid #e3ebef; display: flex; justify-content: flex-end; }
+body.ck-sin-scroll { overflow: hidden; }
+
+@media (max-width: 760px) {
+    .ck-banner { left: 10px; right: 10px; bottom: 10px; }
+    .ck-banner-in { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; }
+    .ck-ic { display: none; }
+    .ck-botones { justify-content: stretch; }
+    .ck-botones .ck-btn { flex: 1; }
+    .ck-modal { padding: 0; align-items: end; }
+    .ck-modal-caja { max-height: 92vh; border-radius: 20px 20px 0 0; }
+    .ck-tabs { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .ck-banner, .ck-modal-caja { transition: none; animation: none; } }

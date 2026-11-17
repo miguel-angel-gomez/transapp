@@ -1,0 +1,5 @@
+Imágenes para la página "Conócenos" (todas .jpg). Si el archivo no existe, la página muestra un recuadro que dice cuál falta.
+
+quienes.jpg      Pasajeros o ciudad (horizontal, 4:3)           — si falta, se usa img/slide-2.jpg (no hace falta subir nada)
+
+Tamaño recomendado: 1200 px de ancho, menos de 400 KB cada una.

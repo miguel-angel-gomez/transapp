@@ -1,0 +1,23 @@
+RUTANEXO — Proyecto PHP 8 + MySQL (index, login, compra de planes, panel del Super Administrador)
+
+La landing es una página estática aparte (Landing_RutaNexo, en el portafolio). Sus botones llevan a este proyecto:
+  Conocer el proyecto / Ir al sistema -> <URL>/index.php
+  Botón de cada plan                  -> <URL>/comprar.php?plan=ID   (pide iniciar sesión y sigue a la compra)
+
+REQUISITOS: PHP 8.0+ (pdo_mysql, fileinfo, mbstring) y MySQL/MariaDB.
+
+PASOS
+1. Subir el CONTENIDO de esta carpeta (FileZilla) a  public_html/transapp  ; debe quedar accesible en  https://transapp.myjob.solutions/  (index.php directamente en esa carpeta).
+2. Crear/importar la base de datos con  rutanexo.sql  (ya incluye 35 rutas de Ibagué, los 4 planes y la tabla de pagos).
+3. Editar  config/conexion.php  con los datos del servidor (host, puerto, base, usuario y contraseña).
+4. Dar permiso de escritura a  storage/documentos  (cámara de comercio y comprobantes; es privada).
+5. Abrir  <URL>/index.php
+
+FLUJO DE COMPRA: plan -> login -> comprar.php (datos de empresa, cámara de comercio, forma de pago) -> mi_compra.php
+Super Administrador (aprueba/rechaza):  admin/solicitudes.php   
+
+NOTA: los datos de cuentas de pago en config/pagos.php son de EJEMPLO y el pago PSE es una simulación para la demostración.
+
+SUPER ADMINISTRADOR
+  Entrada: /login-superadmin  (también /login-superadmin y /superadmin.php). Correo + contraseña y luego código de 6 dígitos al correo.
+  El código solo llega si config/mail.php está en modo 'smtp' con usuario y clave de aplicación de Gmail.

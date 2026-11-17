@@ -1,0 +1,8 @@
+# URL amigable del acceso del Super Administrador: /superadmin  →  superadmin.php
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^superadmin/?$ superadmin.php [L,QSA]
+  RewriteRule ^login-superadmin/?$ superadmin.php [L,QSA]
+  RewriteRule ^superadmin-login/?$ superadmin.php [L,QSA]
+</IfModule>
+

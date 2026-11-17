@@ -1,0 +1,163 @@
+/* ============================================================
+   RutaNexo — Compra de planes (comprar, mi_compra, solicitudes)
+   ============================================================ */
+.cp-pg { padding: 34px 0 80px; background: #f6f9fa; }
+.cp-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.cp-col { display: grid; gap: 18px; min-width: 0; }
+
+/* Tarjetas */
+.cp-card { background: #fff; border: 1px solid var(--linea); border-radius: 18px; padding: 22px 24px; margin: 0; min-width: 0; }
+.cp-card legend { float: left; width: 100%; padding: 0; margin: 0 0 14px; font: 700 1.05rem var(--f-titulo); color: var(--navy); display: flex; align-items: center; gap: 10px; }
+.cp-card legend + * { clear: both; }
+.cp-card h2 { font: 700 1.08rem var(--f-titulo); color: var(--navy); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.cp-card h2 > i { color: var(--teal-d); }
+.cp-n { width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font: 700 .82rem var(--f-titulo); flex: none; }
+.cp-ayuda { color: var(--muted); font-size: .88rem; margin: 0 0 14px; }
+
+/* Campos */
+.cp-campos { display: grid; gap: 14px 16px; }
+.cp-campos.dos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cp-campo { min-width: 0; }
+.cp-campo label:not(.cp-subir), .cp-mini { display: block; font: 600 .8rem var(--f-texto); color: #3b5566; margin-bottom: 6px; }
+.cp-campo input:not(.cp-file), .cp-campo select, .cp-sim-form select, .cp-decision textarea {
+    width: 100%; padding: 11px 13px; border: 1px solid #d5dfe5; border-radius: 11px; background: #fff;
+    font: 500 .95rem var(--f-texto); color: var(--texto); outline: 0; transition: border-color .15s, box-shadow .15s;
+}
+.cp-campo input:focus, .cp-campo select:focus, .cp-sim-form select:focus, .cp-decision textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(19, 196, 163, .15); }
+.cp-campo input[readonly] { background: #f1f5f7; color: #5b7080; }
+.cp-campo.mal input, .cp-campo.mal select { border-color: #e0483f; background: #fff8f7; }
+.cp-err { display: block; margin-top: 5px; color: #c2352d; font-size: .8rem; font-weight: 500; }
+
+/* Subir archivo */
+.cp-file { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cp-subir {
+    display: flex; align-items: center; gap: 16px; padding: 18px 20px; cursor: pointer;
+    border: 2px dashed #bcd0d9; border-radius: 14px; background: #f7fbfc; transition: .15s;
+}
+.cp-subir i { font-size: 1.8rem; color: var(--teal-d); }
+.cp-subir b { display: block; font: 700 .95rem var(--f-titulo); color: var(--navy); word-break: break-all; }
+.cp-subir small { color: var(--muted); font-size: .8rem; }
+.cp-subir:hover, .cp-subir.arrastra { border-color: var(--teal); background: var(--teal-soft); }
+.cp-subir.lleno { border-style: solid; border-color: var(--teal); background: var(--teal-soft); }
+.cp-subir.mal, .cp-campo.mal .cp-subir { border-color: #e0483f; background: #fff8f7; }
+.cp-file:focus-visible + .cp-err, .cp-campo:focus-within .cp-subir { border-color: var(--teal); }
+
+/* Métodos de pago */
+.cp-metodos { display: grid; gap: 10px; }
+.cp-metodos.mal { outline: 2px solid #e0483f; outline-offset: 4px; border-radius: 14px; }
+.cp-metodo { display: block; cursor: pointer; }
+.cp-metodo input { position: absolute; opacity: 0; pointer-events: none; }
+.cp-metodo-in { display: flex; gap: 14px; align-items: center; padding: 14px 16px; border: 1.5px solid #d5dfe5; border-radius: 14px; background: #fff; transition: .15s; }
+.cp-metodo-in > i { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: #eef2f5; color: var(--navy); font-size: 1.05rem; transition: .15s; }
+.cp-metodo-in b { display: block; font: 700 .95rem var(--f-titulo); color: var(--navy); }
+.cp-metodo-in small { display: block; margin-top: 2px; color: var(--muted); font-size: .8rem; line-height: 1.4; }
+.cp-metodo:hover .cp-metodo-in { border-color: var(--teal); }
+.cp-metodo.sel .cp-metodo-in { border-color: var(--teal); background: var(--teal-soft); box-shadow: 0 0 0 3px rgba(19, 196, 163, .18); }
+.cp-metodo.sel .cp-metodo-in > i { background: var(--teal); color: #fff; }
+.cp-metodo input:focus-visible + .cp-metodo-in { outline: 3px solid rgba(19, 196, 163, .5); outline-offset: 2px; }
+.cp-gratis { padding: 16px 18px; border-radius: 14px; background: var(--teal-soft); color: #0b5e4f; display: flex; gap: 12px; align-items: center; }
+.cp-gratis i { font-size: 1.4rem; }
+.cp-acepto { display: flex; gap: 10px; align-items: flex-start; font-size: .88rem; color: #3b5566; cursor: pointer; }
+.cp-acepto input { margin-top: 3px; accent-color: var(--teal-d); width: 17px; height: 17px; flex: none; }
+.cp-acepto.mal span { color: #c2352d; }
+
+/* Resumen */
+.cp-resumen { position: sticky; top: 96px; }
+.cp-resumen-in { background: #fff; border: 1px solid var(--linea); border-radius: 20px; padding: 24px; box-shadow: var(--sombra); }
+.cp-resumen-et { display: block; font: 700 .72rem var(--f-texto); letter-spacing: .9px; text-transform: uppercase; color: #6c8190; margin-bottom: 8px; }
+.cp-resumen h2 { font: 800 1.35rem var(--f-titulo); color: var(--navy); }
+.cp-resumen-desc { color: var(--muted); font-size: .9rem; margin: 4px 0 0; }
+.cp-precio { margin: 14px 0; font: 800 2rem var(--f-titulo); color: var(--navy); }
+.cp-precio small { font-size: .8rem; font-weight: 600; color: var(--muted); margin-left: 6px; }
+.cp-datos { margin: 0 0 14px; padding: 0; display: grid; gap: 8px; }
+.cp-datos div { display: flex; justify-content: space-between; gap: 14px; font-size: .88rem; padding-bottom: 8px; border-bottom: 1px dashed var(--linea); }
+.cp-datos dt { color: var(--muted); flex: none; }
+.cp-datos dd { margin: 0; font-weight: 600; color: var(--navy); text-align: right; word-break: break-word; }
+.cp-datos.grande div { font-size: .93rem; }
+.cp-lista { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 7px; font-size: .88rem; color: #2a4455; }
+.cp-lista i { color: var(--teal-d); margin-right: 7px; font-size: .8rem; }
+.cp-lista.dos { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 12px 0 16px; }
+.cp-enviar { width: 100%; justify-content: center; }
+.cp-nota { margin: 12px 0 0; font-size: .78rem; color: var(--muted); line-height: 1.45; }
+.cp-nota i { color: var(--teal-d); margin-right: 5px; }
+.cp-cambiar { display: block; text-align: center; margin-top: 12px; font-size: .86rem; color: var(--teal-d); font-weight: 600; }
+
+/* Alertas / avisos */
+.cp-alerta { display: flex; gap: 10px; align-items: center; padding: 13px 16px; border-radius: 12px; background: #fdeceb; color: #a3281f; border: 1px solid #f5c6c2; margin-bottom: 18px; font-size: .92rem; }
+.cp-alerta.ok { background: #e3f8f3; color: #0b5e4f; border-color: #b5e8dc; }
+.cp-aviso-pg { padding: 70px 0 90px; background: #f6f9fa; }
+.cp-aviso { max-width: 520px; margin: 0 auto; text-align: center; background: #fff; border: 1px solid var(--linea); border-radius: 22px; padding: 40px 32px; box-shadow: var(--sombra); }
+.cp-aviso-ic { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; background: var(--teal-soft); color: var(--teal-d); font-size: 1.6rem; }
+.cp-aviso h1 { font: 800 1.5rem var(--f-titulo); color: var(--navy); }
+.cp-aviso p { color: var(--muted); margin: 8px 0 22px; }
+.cp-aviso-bot { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* Estado de la compra */
+.cp-badge { display: inline-block; font: 700 .72rem var(--f-titulo); padding: 5px 12px; border-radius: 20px; vertical-align: middle; }
+.cp-badge.ok { background: #e2f7e8; color: #1f9d47; }
+.cp-badge.tra { background: #e2edfd; color: #2563d9; }
+.cp-badge.esp { background: #fdf0d9; color: #b87305; }
+.cp-badge.mal { background: #fde3e3; color: #d33a3a; }
+.cp-pasos { list-style: none; margin: 0 0 24px; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: p; }
+.cp-pasos li { position: relative; text-align: center; font-size: .84rem; color: #8aa0ad; }
+.cp-pasos li::before { content: ""; position: absolute; top: 20px; left: -50%; width: 100%; height: 3px; background: #dbe5ea; z-index: 0; }
+.cp-pasos li:first-child::before { display: none; }
+.cp-pasos li.hecho::before, .cp-pasos li.actual::before { background: var(--teal); }
+.cp-paso-ic { position: relative; z-index: 1; display: grid; place-items: center; width: 42px; height: 42px; margin: 0 auto 8px; border-radius: 50%; background: #fff; border: 3px solid #dbe5ea; color: #a8b9c3; }
+.cp-pasos li.hecho .cp-paso-ic { background: var(--teal); border-color: var(--teal); color: #fff; }
+.cp-pasos li.actual .cp-paso-ic { border-color: var(--teal); color: var(--teal-d); box-shadow: 0 0 0 5px rgba(19, 196, 163, .2); }
+.cp-pasos li.hecho, .cp-pasos li.actual { color: var(--navy); }
+.cp-pasos b { font-weight: 600; }
+.cp-exito { border-color: #b5e8dc; background: linear-gradient(180deg, #f3fcf9, #fff); }
+.cp-exito h2 i { color: #1f9d47; }
+.cp-rechazo { border-color: #f5c6c2; background: #fffafa; }
+.cp-rechazo h2 i { color: #d33a3a; }
+.cp-ok-linea { background: #e2edfd; color: #1d4fa8; border-radius: 10px; padding: 10px 14px; font-size: .88rem; }
+.cp-ok-linea a { text-decoration: underline; margin-left: 6px; font-weight: 600; }
+
+/* Referencia y simulación */
+.cp-ref { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 16px 18px; border-radius: 14px; background: var(--navy); color: #fff; margin: 14px 0; }
+.cp-ref span { font-size: .78rem; text-transform: uppercase; letter-spacing: .9px; color: #9fc3d4; width: 100%; }
+.cp-ref b { font: 800 1.5rem var(--f-titulo); letter-spacing: 1.5px; flex: 1; min-width: 0; word-break: break-all; }
+.cp-copiar { border-color: rgba(255,255,255,.5); color: #fff; padding: 8px 16px; font-size: .85rem; }
+.cp-copiar:hover { background: #fff; color: var(--navy); }
+.cp-comprobante { display: grid; gap: 12px; margin-top: 8px; }
+.cp-sim { border: 2px dashed #f0c56a; background: #fffaf0; border-radius: 14px; padding: 16px 18px; margin-top: 12px; }
+.cp-sim-et { display: block; font: 700 .76rem var(--f-titulo); color: #a06b00; margin-bottom: 10px; }
+.cp-sim-form label { display: block; font: 600 .82rem var(--f-texto); color: #3b5566; margin-bottom: 6px; }
+.cp-sim-bot { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+/* Super admin: lista, tabla, decisión */
+.cp-volver { display: inline-flex; gap: 8px; align-items: center; margin-bottom: 16px; font-weight: 600; font-size: .9rem; color: var(--teal-d); }
+.cp-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.cp-tab { border: 1px solid var(--linea); background: #fff; color: var(--navy); font: 600 .88rem var(--f-texto); padding: 9px 16px; border-radius: 30px; }
+.cp-tab span { margin-left: 6px; background: #eef2f5; border-radius: 20px; padding: 1px 8px; font-size: .78rem; }
+.cp-tab.activo { background: var(--navy); border-color: var(--navy); color: #fff; }
+.cp-tab.activo span { background: rgba(255,255,255,.2); }
+.cp-tabla-caja { background: #fff; border: 1px solid var(--linea); border-radius: 16px; overflow-x: auto; }
+.cp-tabla { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 820px; }
+.cp-tabla th { text-align: left; padding: 13px 16px; font: 700 .72rem var(--f-texto); letter-spacing: .8px; text-transform: uppercase; color: #6c8190; background: #f4f8f9; border-bottom: 1px solid var(--linea); }
+.cp-tabla td { padding: 13px 16px; border-bottom: 1px solid #edf2f5; vertical-align: middle; }
+.cp-tabla tr:last-child td { border-bottom: 0; }
+.cp-tabla td small { display: block; color: var(--muted); font-size: .76rem; }
+.cp-rev { padding: 7px 16px; font-size: .82rem; }
+.cp-vacio { background: #fff; border: 1px dashed #c8d6de; border-radius: 16px; padding: 44px; text-align: center; color: var(--muted); }
+.cp-vacio i { display: block; font-size: 2rem; margin-bottom: 10px; color: #9db0bb; }
+.cp-vista { max-width: 100%; max-height: 380px; border-radius: 12px; border: 1px solid var(--linea); margin-bottom: 14px; display: block; }
+.cp-decision { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--linea); display: grid; gap: 12px; }
+.cp-decision textarea { resize: vertical; }
+
+@media (max-width: 960px) {
+    .cp-grid { grid-template-columns: 1fr; }
+    .cp-resumen { position: static; }
+}
+@media (max-width: 600px) {
+    .cp-campos.dos { grid-template-columns: 1fr; }
+    .cp-card { padding: 18px; }
+    .cp-pasos li { font-size: .72rem; }
+    .cp-paso-ic { width: 36px; height: 36px; }
+    .cp-pasos li::before { top: 17px; }
+    .cp-lista.dos { grid-template-columns: 1fr; }
+    .cp-ref b { font-size: 1.2rem; }
+}
+.cp-gratis span { min-width: 0; }
