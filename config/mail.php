@@ -12,14 +12,14 @@
 // Esa contraseña de 16 letras va en 'clave'. NO uses tu clave normal.
 // ============================================================
 return [
-    'modo'             => 'log',
+    'modo'             => 'smtp',
 
     'host'             => 'smtp.gmail.com',
     'puerto'           => 587,
     'cifrado'          => 'tls',            // 'tls' (587) o 'ssl' (465)
-    'usuario'          => '',               // tu_correo@gmail.com
-    'clave'            => '',               // contraseña de aplicación
+    'usuario'          => 'lupito67lol@gmail.com',               // tu_correo@gmail.com
+    'clave'            => 'ctys nalt zvox tths',               // contraseña de aplicación
 
-    'remitente'        => 'no-reply@rutanexo.local',   // en Gmail debe ser igual a 'usuario'
+    'remitente'        => 'lupito67lol@gmail.com', // en Gmail debe ser igual a 'usuario'
     'nombre_remitente' => 'RutaNexo',
 ];

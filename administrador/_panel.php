@@ -108,23 +108,51 @@ $secciones = [
 /** Abre la página: <head>, navbar, título y menú del panel. */
 function panel_abrir(string $activa, string $titulo, string $intro = ''): void
 {
-    global $secciones, $raiz, $titulo_pagina, $descripcion_pagina, $css_extra, $pagina_activa, $yo;
-    $raiz = '../';
-    $titulo_pagina = $titulo;
-    $descripcion_pagina = $intro ?: 'Panel del administrador de empresa en RutaNexo.';
-    $css_extra = ['css/style_panel.css'];
-    $pagina_activa = '';
-    include __DIR__ . '/../includes/head_publico.php';
-    include __DIR__ . '/../includes/navbar.php';
+    global $secciones, $yo, $u;
     ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= e($titulo) ?> — Administración | RutaNexo</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="../img/logo-pin.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/style_panel.css">
+    <style>
+      body{margin:0;background:#f3f7f8;color:#173247;font-family:Inter,sans-serif}
+      .panel-top{background:#102d43;color:#fff;padding:15px 4%;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+      .panel-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font:800 1.15rem Outfit,sans-serif}
+      .panel-brand img{width:42px;height:42px;object-fit:contain;background:#fff;border-radius:12px;padding:4px}
+      .panel-brand small{display:block;color:#b9d0dc;font:500 .75rem Inter,sans-serif}
+      .panel-user{display:flex;align-items:center;gap:14px;color:#dce8ee;font-size:.88rem}
+      .panel-logout{border:1px solid #547184;border-radius:9px;padding:9px 12px;color:#fff;background:transparent;font-weight:600;cursor:pointer}
+      .panel-logout:hover{background:#c43c3c;border-color:#c43c3c}
+      .panel-heading{background:linear-gradient(115deg,#153c55,#176c70);color:#fff;padding:30px 4%}
+      .panel-heading .eyebrow{font-size:.76rem;text-transform:uppercase;letter-spacing:.12em;color:#bce9df;font-weight:700}
+      .panel-heading h1{font:800 clamp(1.6rem,3vw,2.2rem) Outfit,sans-serif;margin:7px 0}
+      .panel-heading p{margin:0;color:#d9e9ed;max-width:760px}
+      .pn-pg{padding:26px 4% 70px;background:#f3f7f8;min-height:60vh}
+      .pn-pg>.contenedor{max-width:1400px;margin:auto}
+      .pn-menu{padding:12px;background:#fff;border:1px solid #e0e9ed;border-radius:14px;box-shadow:0 5px 20px #1732470b}
+      .panel-footer{text-align:center;padding:18px;color:#718391;font-size:.8rem;background:#fff;border-top:1px solid #e3eaed}
+      @media(max-width:600px){.panel-top{padding:12px 4%}.panel-user{width:100%;justify-content:space-between}.panel-heading{padding:24px 5%}}
+    </style>
+</head>
+<body>
+<header class="panel-top">
+    <a class="panel-brand" href="index.php"><img src="../img/logo.png" alt=""><span>RutaNexo<small>Centro de control · <?= e($yo['razon_social']) ?></small></span></a>
+    <div class="panel-user"><span><i class="fa-solid fa-user-tie"></i> <?= e(trim(($yo['nombre'] ?? '') . ' ' . ($yo['apellido'] ?? ''))) ?></span>
+      <form method="post" action="../includes/logout.php" style="margin:0"><?= campo_csrf() ?><button class="panel-logout" type="submit"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</button></form>
+    </div>
+</header>
 <main>
-    <section class="pg-cab">
-        <div class="contenedor">
-            <span class="etiqueta">Administrador · <?= e($yo['razon_social']) ?></span>
-            <h1><?= e($titulo) ?></h1>
-            <?php if ($intro): ?><p class="intro"><?= e($intro) ?></p><?php endif; ?>
-        </div>
-    </section>
+    <section class="panel-heading"><span class="eyebrow">Administrador de empresa · <?= e($yo['razon_social']) ?></span><h1><?= e($titulo) ?></h1><?php if ($intro): ?><p><?= e($intro) ?></p><?php endif; ?></section>
     <section class="pn-pg">
         <div class="contenedor">
             <nav class="pn-menu" aria-label="Secciones del panel">
@@ -148,8 +176,7 @@ function panel_cerrar(): void
         </div>
     </section>
 </main>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
-<script src="../js/landing.js"></script>
+<footer class="panel-footer">RutaNexo · Panel privado de empresa</footer>
 </body>
 
 </html>

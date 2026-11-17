@@ -4,19 +4,8 @@
 //   Lista las compras, permite revisar la cámara de comercio y el
 //   pago, y aprobar o rechazar la solicitud.
 // ============================================================
-require_once __DIR__ . '/../config/conexion.php';
-require_once __DIR__ . '/../includes/funciones.php';
+require_once __DIR__ . '/_panel.php';
 require_once __DIR__ . '/../includes/compras.php';
-
-iniciar_sesion();
-header('Cache-Control: no-store, no-cache, must-revalidate');
-
-$u = $_SESSION['usuario'] ?? null;
-if (!$u) { header('Location: ../login.php'); exit; }
-if (($u['origen'] ?? '') !== 'super_admin') { http_response_code(403); exit('Solo el Super Administrador puede entrar aquí.'); }
-
-$pdo = (new Database())->conectar();
-if (!$pdo) { http_response_code(503); exit('No hay conexión con la base de datos.'); }
 
 $flash = ['ok' => '', 'mal' => ''];
 
@@ -53,11 +42,7 @@ if (($_GET['m'] ?? '') === 'aprobada') { $flash['ok'] = 'Solicitud aprobada: el 
 if (($_GET['m'] ?? '') === 'rechazada') { $flash['ok'] = 'Solicitud rechazada. El cliente verá el motivo.'; }
 
 $metodos = metodos_pago();
-$raiz = '../';
-$titulo_pagina      = 'Solicitudes de planes';
-$descripcion_pagina = 'Valida las empresas y los pagos de los planes.';
-$css_extra          = ['css/style_compra.css'];
-$pagina_activa      = '';
+$css_extra = ['css/style_compra.css'];
 
 $detalle = !empty($_GET['id']) ? compra_por_id($pdo, (int) $_GET['id']) : null;
 
@@ -88,21 +73,10 @@ $lista = $pdo->prepare($sql . ' ORDER BY s.id_suscripcion DESC');
 $lista->execute($par);
 $lista = $lista->fetchAll();
 
-include __DIR__ . '/../includes/head_publico.php';
-include __DIR__ . '/../includes/navbar.php';
+panel_abrir('solicitudes', 'Solicitudes de planes', 'Revisa la cámara de comercio y el pago de cada empresa. Al aprobar, el plan queda activo y el comprador pasa a ser Administrador.');
 ?>
-<main>
-    <section class="pg-cab">
-        <div class="contenedor">
-            <nav class="migas" aria-label="Migas de pan"><a href="index.php">Panel</a><span>/</span><a href="solicitudes.php">Solicitudes</a><?php if ($detalle): ?><span>/</span><span>#<?= (int) $detalle['id_suscripcion'] ?></span><?php endif; ?></nav>
-            <span class="etiqueta">Super Administrador</span> <a href="index.php" style="color:inherit;font-weight:600;margin-left:10px"><i class="fa-solid fa-gauge-high"></i> Volver al panel</a>
-            <h1>Solicitudes de <span class="acento">planes</span></h1>
-            <p class="intro">Revisa la cámara de comercio y el pago de cada empresa. Al aprobar, el plan queda activo y el comprador pasa a ser Administrador.</p>
-        </div>
-    </section>
-
-    <section class="cp-pg">
-        <div class="contenedor">
+<div class="cp-pg">
+    <div class="contenedor">
             <?php if ($flash['ok']): ?><div class="cp-alerta ok" role="status"><i class="fa-solid fa-circle-check"></i> <?= e($flash['ok']) ?></div><?php endif; ?>
             <?php if ($flash['mal']): ?><div class="cp-alerta" role="alert"><i class="fa-solid fa-triangle-exclamation"></i> <?= e($flash['mal']) ?></div><?php endif; ?>
 
@@ -229,11 +203,6 @@ include __DIR__ . '/../includes/navbar.php';
                     </div>
                 <?php endif; ?>
             <?php endif; ?>
-        </div>
-    </section>
-</main>
-
-<?php include __DIR__ . '/../includes/footer.php'; ?>
-<script src="../js/landing.js"></script>
-</body>
-</html>
+    </div>
+</div>
+<?php panel_cerrar(); ?>

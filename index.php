@@ -17,6 +17,13 @@ require_once 'includes/funciones.php';
 
 iniciar_sesion();
 
+// El Super Administrador permanece en su entorno administrativo hasta cerrar sesión.
+if (($_SESSION['usuario']['origen'] ?? '') === 'super_admin') {
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Location: admin/index.php');
+    exit;
+}
+
 $db  = new Database();
 $pdo = $db->conectar();   // puede ser null si MySQL está apagado
 

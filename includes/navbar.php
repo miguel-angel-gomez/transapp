@@ -6,7 +6,15 @@
 // ============================================================
 $pagina_activa = $pagina_activa ?? 'inicio';
 $sesion_activa = !empty($_SESSION['usuario']);
+$es_superadmin = (($_SESSION['usuario']['origen'] ?? '') === 'super_admin');
 $raiz = $raiz ?? '';
+
+// Si el Super Administrador llega a una vista pública, vuelve a su panel.
+if ($es_superadmin) {
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Location: ' . $raiz . 'admin/index.php');
+    exit;
+}
 ?>
 <header class="navbar" id="navbar">
     <div class="contenedor navbar-in">
@@ -25,9 +33,9 @@ $raiz = $raiz ?? '';
         </ul>
 
         <div class="nav-acciones">
-            <?php if ($sesion_activa): ?>
+            <?php if ($sesion_activa && !$es_superadmin): ?>
                 <a href="<?= $raiz ?>dash.php" class="btn btn-borde-claro"><i class="fa-regular fa-user"></i> Mi panel</a>
-            <?php else: ?>
+            <?php elseif (!$es_superadmin): ?>
                 <a href="<?= $raiz ?>login.php" class="btn btn-borde-claro"><i class="fa-regular fa-user"></i> Iniciar sesión</a>
                 <a href="<?= $raiz ?>login.php?modo=registro" class="btn btn-teal"><i class="fa-solid fa-user-plus"></i> Registrarse</a>
             <?php endif; ?>
